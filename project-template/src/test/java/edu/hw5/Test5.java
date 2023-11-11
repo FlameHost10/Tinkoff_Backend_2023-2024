@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 public class Test5 {
     @Test
-    @DisplayName("Среднее значение продолжительности сеанса")
-    void ValidationRussianLicensePlatesTest(){
+    @DisplayName("Валидация автомобильных номеров")
+    public void ValidationRussianLicensePlatesTest(){
 
         String test1 = "А123ВЕ777",
             test2 = "О777ОО177",
