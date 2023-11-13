@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task4 {
-    public static void main(String[] args) {
+    public static void specialSign(String[] args) {
 //        String s = "wfewsffe!rr2";
 //        String s2 = "^(?!.*(\\!.*\\!)).*$";
 //        Pattern exclamationMark = /Pattern.compile("(^(?!.*(\\!.*\\!)).*$)(\\!)/")/,
