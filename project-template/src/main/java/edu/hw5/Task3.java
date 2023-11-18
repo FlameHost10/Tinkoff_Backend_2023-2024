@@ -1,39 +1,34 @@
 package edu.hw5;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task3 {
 
-    private final static Pattern dateSeparatedDash = Pattern.compile("^(\\d{4})-(\\d{1,2})-(\\d{1,2})$");
-    private final static Pattern dateSeparatedSlash = Pattern.compile("^(\\d{1,2})/(\\d{1,2})/(\\d{4})$");
-    private final static Pattern dateSeparatedSlashAbbreviated = Pattern.compile("^(\\d{1,2})/(\\d{1,2})/(\\d{2})$");
+    private final static DateTimeFormatter dateSeparatedDash = DateTimeFormatter.ofPattern("yyyy-M-d");
+    private final static DateTimeFormatter dateSeparatedSlash = DateTimeFormatter.ofPattern("d/M/yyyy");
+    private final static DateTimeFormatter dateSeparatedSlashAbbreviated = DateTimeFormatter.ofPattern("d/M/yy");
 
     private final static Pattern fewDaysAgo = Pattern.compile("^(\\d+) day(s?) ago$");
     private final static Pattern fewDaysLater = Pattern.compile("^(\\d+) day(s?) later$");
 
     public static Optional<LocalDate> dateRecognition(String date){
-        Matcher matchDateSeparatedDash = dateSeparatedDash.matcher(date);
-        Matcher matchDateSeparatedSlash = dateSeparatedSlash.matcher(date);
-        Matcher matchDateSeparatedSlashAbbreviated = dateSeparatedSlashAbbreviated.matcher(date);
+        try{
+            return Optional.of(LocalDate.parse(date, dateSeparatedDash));
+        }catch( DateTimeParseException ignored){}
 
-        if(matchDateSeparatedDash.find()){
-            return Optional.of(LocalDate.of(Integer.parseInt(matchDateSeparatedDash.group(1)),
-                Integer.parseInt(matchDateSeparatedDash.group(2)),
-                Integer.parseInt(matchDateSeparatedDash.group(3))));
-        }
-        else if(matchDateSeparatedSlash.find()){
-            return Optional.of(LocalDate.of(Integer.parseInt(matchDateSeparatedSlash.group(3)),
-                Integer.parseInt(matchDateSeparatedSlash.group(2)),
-                Integer.parseInt(matchDateSeparatedSlash.group(1))));
-        }
-        else if(matchDateSeparatedSlashAbbreviated.find()){
-            return Optional.of(LocalDate.of(Integer.parseInt(matchDateSeparatedSlashAbbreviated.group(3)) + 2000,
-                Integer.parseInt(matchDateSeparatedSlashAbbreviated.group(2)),
-                Integer.parseInt(matchDateSeparatedSlashAbbreviated.group(1))));
-        }
+        try{
+            return Optional.of(LocalDate.parse(date, dateSeparatedSlash));
+        }catch( DateTimeParseException ignored){}
+
+        try{
+            return Optional.of(LocalDate.parse(date, dateSeparatedSlashAbbreviated));
+        }catch( DateTimeParseException ignored){}
 
 
         LocalDate now = LocalDate.now();
