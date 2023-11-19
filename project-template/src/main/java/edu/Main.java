@@ -1,16 +1,22 @@
 package edu;
 
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
-import java.time.temporal.TemporalAdjusters;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import edu.hw6.Task6;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import static edu.hw6.Task5.HackerNews.hackerNewsTopStories;
+import static edu.hw6.Task5.HackerNews.news;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException {
 
-        LocalDate date = LocalDate.of(2023, 11, 12);
-        System.out.println(date.with(TemporalAdjusters.next(DayOfWeek.FRIDAY)));
+        ArrayList<String[]> ans = Task6.portAnalysis();
+
+        for(var elem:ans){
+            System.out.println(elem[0] + " -> " + elem[1]);
+        }
+
+
     }
 }
