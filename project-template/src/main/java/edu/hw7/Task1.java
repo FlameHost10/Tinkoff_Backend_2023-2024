@@ -1,5 +1,10 @@
 package edu.hw7;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
+import static java.lang.Math.min;
+
 public class Task1 {
 
 
@@ -7,14 +12,35 @@ public class Task1 {
     public static int incrementFromThreads(int numb) throws InterruptedException {
         numberThreads = 0;
 
-        Thread first = new Thread(() -> increment((numb / 2) + (numb % 2), "First"));
-        Thread second = new Thread(() -> increment((numb / 2), "Second"));
 
-        first.start();
-        second.start();
+        List<Thread> threads = new ArrayList<>();;
 
-        first.join();
-        second.join();
+        if(numb <= 100) {
+            for (int i = 0; i < numb % 100; i++) {
+                int finalI = i;
+                threads.add(new Thread(() -> increment(numb / 100 + 1, String.valueOf(finalI))));
+            }
+        }
+        else {
+            for (int i = 0; i < numb % 100; i++) {
+                int finalI = i;
+                threads.add(new Thread(() -> increment(numb / 100 + 1, String.valueOf(finalI))));
+            }
+
+            for(int i = 0; i < 100 - numb % 100; i++){
+                int finalI = i + numb % 100;
+                threads.add(new Thread(() -> increment(numb / 100 ,  String.valueOf(finalI))));
+            }
+        }
+
+        for(var t: threads){
+            t.start();
+        }
+
+        for(var t: threads){
+            t.join();
+        }
+
 
         return numberThreads;
 
@@ -25,7 +51,7 @@ public class Task1 {
         for(int i = 0; i < quantity; i++){
             synchronized (Task1.class){
                 numberThreads++;
-                System.out.print(massage + " ");
+                System.out.println("Thread: " + massage);
             }
         }
     }

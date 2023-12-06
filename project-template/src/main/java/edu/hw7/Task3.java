@@ -57,26 +57,18 @@ public class Task3 {
 
         @Override
         public List<Person> findByName(String name) {
-            List<Person> listByName = new ArrayList<>();
+            List<Person> listByName;
             readLock.lock();
-            for(var person:database){
-                if(person.name.equals(name)){
-                    listByName.add(person);
-                }
-            }
+            listByName = database.stream().filter(x -> x.name.equals(name)).toList();
             readLock.unlock();
             return listByName;
         }
 
         @Override
         public List<Person> findByAddress(String address) {
-            List<Person> listByAddress = new ArrayList<>();
+            List<Person> listByAddress;
             readLock.lock();
-            for(var person:database){
-                if(person.address.equals(address)){
-                    listByAddress.add(person);
-                }
-            }
+            listByAddress = database.stream().filter(x -> x.address.equals(address)).toList();
             readLock.unlock();
             return listByAddress;
 
@@ -84,13 +76,9 @@ public class Task3 {
 
         @Override
         public List<Person> findByPhone(String phone) {
-            List<Person> listByPhone = new ArrayList<>();
+            List<Person> listByPhone;
             readLock.lock();
-            for(var person:database){
-                if(person.phoneNumber.equals(phone)){
-                    listByPhone.add(person);
-                }
-            }
+            listByPhone = database.stream().filter(x -> x.phoneNumber.equals(phone)).toList();
             readLock.unlock();
             return listByPhone;
         }

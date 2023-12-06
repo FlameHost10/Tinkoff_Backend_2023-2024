@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 public class Test3 {
 
     @Test
-    @DisplayName("Факториал с parallelStream")
+    @DisplayName("Поиск людей в database")
     void PersonDatabaseFindTest() throws InterruptedException {
 
         Task3.PersonDatabaseFind personDatabaseFind = new Task3.PersonDatabaseFind();
