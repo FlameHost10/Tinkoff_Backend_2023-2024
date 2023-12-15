@@ -17,7 +17,6 @@ public class Test3 {
                     System.out.println("add person " + i);
                     personDatabaseFind.add(new Task3.Person(i, "name " + i, "address " + i, "phone " + i));
                 }
-
             }
         }
         );

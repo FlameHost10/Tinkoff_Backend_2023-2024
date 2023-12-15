@@ -39,7 +39,7 @@ public class Task3 {
         private Set<Person> database = new HashSet<>();
         private final ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
         private final Lock readLock = readWriteLock.readLock();
-        private final Lock writeLock = readWriteLock.readLock();
+        private final Lock writeLock = readWriteLock.writeLock();
 
         @Override
         public void add(Person person) {

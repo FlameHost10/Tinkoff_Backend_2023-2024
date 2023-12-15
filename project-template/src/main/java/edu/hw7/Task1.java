@@ -2,15 +2,16 @@ package edu.hw7;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 import static java.lang.Math.min;
 
 public class Task1 {
 
 
-    private static volatile int numberThreads = 0;
+    private static AtomicInteger numberThreads;
     public static int incrementFromThreads(int numb) throws InterruptedException {
-        numberThreads = 0;
+        numberThreads = new AtomicInteger(0);
 
 
         List<Thread> threads = new ArrayList<>();;
@@ -42,17 +43,15 @@ public class Task1 {
         }
 
 
-        return numberThreads;
+        return numberThreads.get();
 
     }
 
 
     private static void increment(int quantity, String massage){
         for(int i = 0; i < quantity; i++){
-            synchronized (Task1.class){
-                numberThreads++;
-                System.out.println("Thread: " + massage);
-            }
+            numberThreads.incrementAndGet();
+            System.out.println("Thread: " + massage);
         }
     }
 
